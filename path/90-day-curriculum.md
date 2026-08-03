@@ -8,6 +8,7 @@ Assume part-time evenings. Adjust freely.
 - [ ] Cilium installed; you can explain pod/service CIDR  
 - [ ] Argo CD + empty platform-gitops  
 - [ ] Cloudflare Tunnel: one public hostname  
+- [ ] Technitium split-DNS + external-dns (CF + RFC2136)  
 - [ ] Agent has GH App + kubectl  
 - [ ] Learning board live  
 

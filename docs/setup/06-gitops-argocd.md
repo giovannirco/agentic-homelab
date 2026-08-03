@@ -74,4 +74,6 @@ argocd app list   # if CLI configured
 
 - [ ] Argo UI or CLI works  
 - [ ] Empty or example app syncs Healthy  
-- [ ] You understand Application vs AppSet  
+- [ ] You understand Application vs AppSet
+
+Repo models (simple vs multi-org): [gitops-repo-models.md](../platform/gitops-repo-models.md).
