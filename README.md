@@ -55,9 +55,11 @@ Apps: shopping list, bots, whatever you care about
 | 10 | [docs/setup/10-learning-board.md](docs/setup/10-learning-board.md) | Issues + Projects as curriculum |
 | 11 | [docs/setup/11-technitium-split-dns.md](docs/setup/11-technitium-split-dns.md) | Private DNS / split-horizon |
 | 12 | [docs/setup/12-external-dns.md](docs/setup/12-external-dns.md) | Cloudflare + Technitium automation |
+| 13 | [docs/setup/13-observability.md](docs/setup/13-observability.md) | Cloud Free / light / full LGTM |
 | — | [docs/platform/hardware-topologies.md](docs/platform/hardware-topologies.md) | 1-box / hybrid / HA+Proxmox |
 | — | [docs/platform/gitops-repo-models.md](docs/platform/gitops-repo-models.md) | Simple vs multi-org GitOps |
 | — | [docs/network/home-network-controllers.md](docs/network/home-network-controllers.md) | UniFi / MikroTik / Omada |
+| — | [docs/platform/observability-tiers.md](docs/platform/observability-tiers.md) | Obs tier cheat sheet |
 | — | [path/90-day-curriculum.md](path/90-day-curriculum.md) | Career-shaped progression |
 | — | [docs/lessons/hard-won.md](docs/lessons/hard-won.md) | Footguns from real ops |
 | — | [docs/agents/hermes-and-openclaw.md](docs/agents/hermes-and-openclaw.md) | Agent fleet patterns |

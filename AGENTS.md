@@ -26,7 +26,7 @@ Help the human build and operate a **learning homelab** that teaches **platform 
 
 | Path | Role |
 |------|------|
-| `docs/setup/` | Ordered bootstrap guides (incl. Technitium, external-dns) |
+| `docs/setup/` | Ordered bootstrap guides (incl. DNS, external-dns, observability) |
 | `docs/platform/` | Topologies, GitOps models, networking decisions |
 | `docs/network/` | Home controllers (UniFi/MikroTik/Omada) |
 | `docs/agents/` | Hermes / OpenClaw / MCP |

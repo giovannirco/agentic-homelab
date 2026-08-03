@@ -91,4 +91,6 @@ Same software path, different boxes. Choose by budget and how much HA you need *
 
 - [gitops-repo-models.md](gitops-repo-models.md)  
 - [home-network-controllers.md](../network/home-network-controllers.md)  
-- Setup: `docs/setup/02-proxmox-base.md`, `04-talos-single-node.md`  
+- Setup: `docs/setup/02-proxmox-base.md`, `04-talos-single-node.md`
+
+Observability pressure by topology: [observability-tiers.md](observability-tiers.md).

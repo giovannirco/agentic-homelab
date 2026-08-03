@@ -32,3 +32,7 @@ Do not reintroduce private hostnames into this repository.
 | cluster-gitops vs platform-gitops / multi-org AppSet | docs/platform/gitops-repo-models |
 | Hardware A/B/C topologies | docs/platform/hardware-topologies |
 | UniFi / MikroTik / Omada DNS/VLAN | docs/network/home-network-controllers |
+
+| Grafana Cloud Free + Alloy | docs/setup/13, skill observability |
+| Light Prometheus + Loki SingleBinary | docs/setup/13 Tier 1 |
+| Full LGTM RF=1 dual write + MinIO + k8s-monitoring | docs/setup/13 Tier 2 |
