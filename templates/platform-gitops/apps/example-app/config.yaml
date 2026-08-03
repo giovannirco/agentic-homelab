@@ -1,0 +1,4 @@
+# AppSet metadata example — adapt to your generator
+name: example-app
+namespace: example-app
+project: default

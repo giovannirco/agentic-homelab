@@ -1,0 +1,12 @@
+.local/
+*.pem
+*.key
+*.env
+.env*
+!.env.example
+.DS_Store
+.venv/
+__pycache__/
+*.oga
+*.wav
+secrets/

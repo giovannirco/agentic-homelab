@@ -1,0 +1,16 @@
+image:
+  repository: public.ecr.aws/nginx/nginx
+  tag: "1.27"   # PIN — look up latest stable before use
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 80
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
+  limits:
+    memory: 128Mi
