@@ -30,7 +30,7 @@ Assume part-time evenings. Adjust freely.
 - [ ] Backup job for DB → object storage or NFS  
 - [ ] NetworkPolicy on one namespace  
 - [ ] Sequential upgrade rehearsal (k8s patch)  
-- [ ] Observability: metrics + logs for one app  
+- [ ] Observability: Tier 0 Cloud Free or Tier 1 light; Tier 2 LGTM only if multi-node  
 - [ ] Agent RBAC reduced from cluster-admin  
 
 **Outcome:** you can talk storage, upgrades, and blast radius.
