@@ -52,4 +52,6 @@ Before risky experiments on the agent or Talos VM: snapshot in Proxmox UI.
 
 - [ ] Proxmox UI reachable on LAN  
 - [ ] Two empty VMs created (or one + ISO ready)  
-- [ ] Host has free RAM after VMs sized  
+- [ ] Host has free RAM after VMs sized
+
+Topology choices: [hardware-topologies.md](../platform/hardware-topologies.md).

@@ -48,3 +48,5 @@
 6. Multi-tenant org fan-out (advanced)
 
 See also: [networking-decisions.md](networking-decisions.md), [hermes-vm-vs-kubernetes.md](../agents/hermes-vm-vs-kubernetes.md), [waha-and-mcp.md](../agents/waha-and-mcp.md).
+
+Also: [hardware-topologies.md](hardware-topologies.md), [gitops-repo-models.md](gitops-repo-models.md).

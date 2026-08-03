@@ -26,3 +26,9 @@ Do not reintroduce private hostnames into this repository.
 | Hermes VM multi-profile fleet | docs/agents/hermes-vm-vs-kubernetes |
 | Hermes k8s tenant + GH App + MCP | hermes-agent skill, hermes-vm-vs-kubernetes |
 | WAHA GOWS + MCP (agents) | docs/agents/waha-and-mcp, skill waha-mcp |
+
+| Technitium split-DNS + catalog | docs/setup/11, skill technitium-split-dns |
+| external-dns CF + RFC2136 | docs/setup/12, skill external-dns |
+| cluster-gitops vs platform-gitops / multi-org AppSet | docs/platform/gitops-repo-models |
+| Hardware A/B/C topologies | docs/platform/hardware-topologies |
+| UniFi / MikroTik / Omada DNS/VLAN | docs/network/home-network-controllers |

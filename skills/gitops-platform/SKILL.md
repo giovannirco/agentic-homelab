@@ -41,3 +41,5 @@ Generate one Application per `apps/*` with `config.yaml` metadata (project, path
 - Edit git, not live objects, when selfHeal is on
 - Pin chart versions in infra apps
 - Register repo credentials via Argo Secret (OOB)
+
+Multi-org / simple models: `skills/gitops-repo-models/` and `docs/platform/gitops-repo-models.md`.

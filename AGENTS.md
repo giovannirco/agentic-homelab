@@ -26,8 +26,9 @@ Help the human build and operate a **learning homelab** that teaches **platform 
 
 | Path | Role |
 |------|------|
-| `docs/setup/` | Ordered bootstrap guides |
-| `docs/platform/` | Architecture patterns |
+| `docs/setup/` | Ordered bootstrap guides (incl. Technitium, external-dns) |
+| `docs/platform/` | Topologies, GitOps models, networking decisions |
+| `docs/network/` | Home controllers (UniFi/MikroTik/Omada) |
 | `docs/agents/` | Hermes / OpenClaw / MCP |
 | `docs/lessons/` | Hard-won footguns |
 | `skills/` | Portable agent skills (incl. cilium LB-IPAM, multus, hermes dual, waha) |
