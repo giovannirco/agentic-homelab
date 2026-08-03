@@ -55,7 +55,7 @@ Help the human build and operate a **learning homelab** that teaches **platform 
 ## Out of scope unless asked
 
 - Multi-org tenant fan-out
-- Production company WAHA/Chatwoot fleets
+- Production multi-tenant WAHA fleets (document generically only)
 - Breaking-glass Omni recovery (link skill, only if learner uses Omni)
 
 ## Security

@@ -111,5 +111,5 @@ OOB Secrets:
 ## Related
 
 - Skill: `skills/hermes-agent/`
-- WAHA: `docs/agents/waha-and-chatwoot.md`
+- WAHA: `docs/agents/waha-and-mcp.md`
 - Permissions: `docs/setup/08-wire-agent-permissions.md`

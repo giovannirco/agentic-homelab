@@ -91,4 +91,4 @@ Shared conventions make migration easy:
 ## Deeper dual-path docs
 
 - [Hermes VM vs Kubernetes](../agents/hermes-vm-vs-kubernetes.md)
-- [WAHA + Chatwoot](../agents/waha-and-chatwoot.md)
+- [WAHA + MCP](../agents/waha-and-mcp.md)

@@ -47,4 +47,4 @@
 5. Multi-repo cluster-gitops vs platform-gitops  
 6. Multi-tenant org fan-out (advanced)
 
-See also: [networking-decisions.md](networking-decisions.md), [hermes-vm-vs-kubernetes.md](../agents/hermes-vm-vs-kubernetes.md), [waha-and-chatwoot.md](../agents/waha-and-chatwoot.md).
+See also: [networking-decisions.md](networking-decisions.md), [hermes-vm-vs-kubernetes.md](../agents/hermes-vm-vs-kubernetes.md), [waha-and-mcp.md](../agents/waha-and-mcp.md).

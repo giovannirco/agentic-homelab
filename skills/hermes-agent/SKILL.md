@@ -58,3 +58,8 @@ waha-tenant:
 - Prefer GitOps for k8s agents
 - Scope GH App to lab/tenant repos only
 - Explain-as-you-go in learning mode
+
+## Related
+
+- `skills/waha-mcp/`
+- `docs/agents/waha-and-mcp.md`

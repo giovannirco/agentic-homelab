@@ -25,4 +25,4 @@ Do not reintroduce private hostnames into this repository.
 | Envoy dual gateway | networking-decisions, setup/05–07 |
 | Hermes VM multi-profile fleet | docs/agents/hermes-vm-vs-kubernetes |
 | Hermes k8s tenant + GH App + MCP | hermes-agent skill, hermes-vm-vs-kubernetes |
-| WAHA GOWS + Chatwoot ClusterIP | docs/agents/waha-and-chatwoot, skill waha-chatwoot |
+| WAHA GOWS + MCP (agents) | docs/agents/waha-and-mcp, skill waha-mcp |
