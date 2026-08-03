@@ -86,4 +86,9 @@ Shared conventions make migration easy:
 - [ ] You can chat with the agent from your phone  
 - [ ] Agent can run `gh auth status` (or will after step 08)  
 - [ ] Skills from this repo are installed  
-- [ ] SOUL/USER/AGENTS present  
+- [ ] SOUL/USER/AGENTS present
+
+## Deeper dual-path docs
+
+- [Hermes VM vs Kubernetes](../agents/hermes-vm-vs-kubernetes.md)
+- [WAHA + Chatwoot](../agents/waha-and-chatwoot.md)
