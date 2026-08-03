@@ -19,3 +19,10 @@ This curriculum was synthesized from real homelab ops themes. Personal names, IP
 | Agent skill install | scripts/install-skills.sh |
 
 Do not reintroduce private hostnames into this repository.
+
+| Cilium LB-IPAM + L2 (not MetalLB) | docs/platform/networking-decisions, skill cilium-networking |
+| Multus macvlan NADs | skill multus-secondary-net |
+| Envoy dual gateway | networking-decisions, setup/05–07 |
+| Hermes VM multi-profile fleet | docs/agents/hermes-vm-vs-kubernetes |
+| Hermes k8s tenant + GH App + MCP | hermes-agent skill, hermes-vm-vs-kubernetes |
+| WAHA GOWS + MCP (agents) | docs/agents/waha-and-mcp, skill waha-mcp |

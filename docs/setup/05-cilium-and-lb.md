@@ -1,85 +1,64 @@
-# 05 — Cilium networking + load balancer path
+# 05 — Cilium networking + LoadBalancer (Cilium LB-IPAM)
 
 ## Goal
 
-Install **Cilium** as the cluster CNI so you learn:
+Install **Cilium** as CNI and give `Service type: LoadBalancer` real **LAN VIPs** using:
 
-- Cluster networking (pods, services)
-- NetworkPolicy later
-- Optional **L2/LB IPAM** so Services of type LoadBalancer get LAN IPs
+1. **CiliumLoadBalancerIPPool**
+2. **CiliumL2AnnouncementPolicy**
 
-Alternatives (MetalLB, Multus) exist; Cilium covers a lot for a learning lab.
+This is **not** the MetalLB project. (People say “MetalLB” loosely for “LAN VIP”; here the implementation is Cilium.)
 
-## Why not “whatever default”
+Deep reference: [networking-decisions.md](../platform/networking-decisions.md).
 
-Default CNIs work until you need:
+## Why Cilium
 
-- Fixed LAN VIP for a service
-- Hubble observability
-- Policies
-- Understanding of kube-proxy replacement
+- Real CNI literacy
+- kube-proxy replacement
+- LB IPAM + L2 without a second stack
+- Path to Hubble / policies
 
-Interview signal: *“I chose Cilium and can explain tradeoffs.”*
+## Install
 
-## Install (conceptual)
-
-Always pin chart/app version from Cilium release docs:
-
-```bash
-# Example shape — replace versions after looking up latest stable
-helm repo add cilium https://helm.cilium.io/
-helm install cilium cilium/cilium --namespace kube-system \
-  --version <CHART_VERSION> \
-  --set ipam.mode=kubernetes \
-  --set kubeProxyReplacement=true \
-  # enable L2 announcements / LB IPAM per current Cilium docs for your version
-```
-
-For single-node labs, follow Cilium’s official **kubeadm/talos** install guide for your k8s version.
+Pin chart from Cilium releases; follow Talos+Cilium docs for your versions.
 
 ## LB pool
 
-Reserve a small range on your LAN that DHCP will not use, e.g. `10.0.0.200–10.0.0.220`.
+1. Pick a DHCP-excluded range on your LAN.
+2. Apply `CiliumLoadBalancerIPPool`.
+3. Apply `CiliumL2AnnouncementPolicy` with interface regex matching node NICs.
+4. Create a test LoadBalancer Service; **ping the VIP from another host**.
 
-Wire Cilium LB IPAM or MetalLB with that pool. Then:
+Pin fixed VIPs later with:
 
 ```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: demo
-  annotations:
-    # annotation keys vary by LB implementation — use current Cilium docs
-spec:
-  type: LoadBalancer
-  ports: [{ port: 80, targetPort: 8080 }]
+annotations:
+  lbipam.cilium.io/ips: "<VIP>"
+  lbipam.cilium.io/ip-pool: servers-pool
 ```
 
-## Gateway API (recommended later)
+Typical VIP consumers: Envoy internal/external Gateways. App Services stay ClusterIP by default.
 
-Prefer **Gateway API** (Envoy Gateway / Cilium Gateway) over legacy Ingress long-term:
+## Multus (optional, later)
 
-- HTTPRoute resources
-- Clear separation internal vs external listeners
-- Matches how modern platform teams expose apps
+Secondary macvlan interfaces only when a pod needs a LAN NIC of its own (see Multus skill). Skip on day 1.
 
-Day 1 you can expose with NodePort or a single LB Service; day 7 move to Gateway + tunnel.
+## Gateway API (next after LB works)
 
-## Multus (optional)
-
-Use Multus when a pod needs a second interface (e.g. macvlan onto LAN). Skip until you have a concrete need.
+Prefer Envoy Gateway HTTPRoutes over legacy Ingress. Dual gateways (internal + external) when you add Cloudflare Tunnel.
 
 ## Verify
 
 ```bash
 kubectl -n kube-system get pods -l k8s-app=cilium
-kubectl get svc -A | head
-cilium status   # if cilium CLI installed
+kubectl get ciliumloadbalancerippools
+kubectl get ciliuml2announcementpolicies
+kubectl get svc -A --field-selector spec.type=LoadBalancer
 ```
 
 ## Done when
 
-- [ ] CoreDNS works  
-- [ ] Pods can reach cluster Services  
-- [ ] You can explain pod CIDR vs service CIDR vs LAN  
-- [ ] Optional: one LoadBalancer IP assigned from your pool  
+- [ ] CoreDNS works
+- [ ] Pods reach ClusterIP services
+- [ ] At least one LB VIP pings on LAN
+- [ ] You can explain pod CIDR vs service CIDR vs LB pool

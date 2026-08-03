@@ -56,6 +56,9 @@ Apps: shopping list, bots, whatever you care about
 | — | [path/90-day-curriculum.md](path/90-day-curriculum.md) | Career-shaped progression |
 | — | [docs/lessons/hard-won.md](docs/lessons/hard-won.md) | Footguns from real ops |
 | — | [docs/agents/hermes-and-openclaw.md](docs/agents/hermes-and-openclaw.md) | Agent fleet patterns |
+| — | [docs/agents/hermes-vm-vs-kubernetes.md](docs/agents/hermes-vm-vs-kubernetes.md) | Hermes on Proxmox vs k8s |
+| — | [docs/agents/waha-and-mcp.md](docs/agents/waha-and-mcp.md) | WAHA MCP for agents |
+| — | [docs/platform/networking-decisions.md](docs/platform/networking-decisions.md) | Cilium LB, Multus, dual Gateway |
 
 ## Skills (install for agents)
 
@@ -71,9 +74,11 @@ bash scripts/install-skills.sh --both
 | `onboard-app` | Installing/upgrading any app (version pin mandatory) |
 | `out-of-band-secrets` | Secrets that must never live in git |
 | `gitops-platform` | Argo App-of-Apps / platform-gitops layout |
-| `cilium-networking` | CNI, LB IPAM, Gateway API basics |
+| `cilium-networking` | Cilium CNI + **LB-IPAM + L2** (not MetalLB) |
+| `multus-secondary-net` | Multus macvlan second NIC (optional) |
 | `cloudflare-tunnel` | Public exposure without opening home ports |
-| `hermes-agent` | Hermes install, GH App, MCP, workspace |
+| `hermes-agent` | Hermes **VM fleet** and **k8s tenant** patterns |
+| `waha-mcp` | WAHA GOWS + MCP for Hermes/Grok |
 | `homelab-databases` | MariaDB / CNPG / Redis single vs multi |
 | `talos-upgrade` | Sequential Talos + k8s upgrades |
 | `explain-as-you-go` | Teach while executing (learning channel) |
@@ -92,6 +97,22 @@ bash scripts/install-skills.sh --both
 4. **Verify live before mutate.**
 5. **Sequential upgrades** for control planes (Talos minors, k8s minors).
 6. **Do not paste secrets** into Discord, WhatsApp, or issue comments.
+
+
+
+## Provenance (honest)
+
+Initial skills in this repo were **inspired by a real production-style homelab**, then **rewritten as generic patterns** (placeholders, no private topology). They are **not** a live dump of any cluster.
+
+| Content | Source style |
+|---------|----------------|
+| Bootstrap path, philosophy | Voice notes + curriculum design |
+| Cilium / Multus / LB / Gateway | Real lab choices, documented generically |
+| Hermes VM vs k8s | Real dual deployment model, sanitized |
+| WAHA + MCP | Real integration patterns, sanitized |
+| Version-pin, OOB secrets, GitOps | Real hard rules from ops experience |
+
+When you validate on a **new Proxmox**, treat every IP, domain, chart version, and annotation as **yours to fill** — re-check upstream docs and pin current stable.
 
 ## Language
 

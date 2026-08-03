@@ -28,11 +28,14 @@
 |-------|----------------------|--------------|
 | Hypervisor | Proxmox | bare metal Talos only |
 | k8s distro | Talos | k3s, kubeadm |
-| CNI | Cilium | Calico, Flannel (teaching: prefer Cilium) |
+| CNI | Cilium (native routing + kube-proxy replacement) | Calico, Flannel |
+| LoadBalancer | Cilium LB-IPAM + L2 Announcement | MetalLB project |
+| Secondary NIC | Multus macvlan (optional) | hostNetwork |
+| L7 | Envoy Gateway dual (internal + external) | nginx-ingress only |
 | GitOps | Argo CD | Flux |
-| Edge | Cloudflare Tunnel | public LB, Tailscale Funnel |
+| Edge | Cloudflare Tunnel → external gateway | open home ports |
 | DNS LAN | router + optional Technitium | Pi-hole |
-| Agent | Hermes | OpenClaw, laptop-only Grok |
+| Agent | Hermes VM and/or k8s tenant | OpenClaw legacy |
 | Secrets | OOB + private git values | ESO + 1Password (later) |
 
 ## Growth path
@@ -42,4 +45,6 @@
 3. Observability (Grafana + logs)  
 4. Second node / Omni  
 5. Multi-repo cluster-gitops vs platform-gitops  
-6. Multi-tenant org fan-out (advanced)  
+6. Multi-tenant org fan-out (advanced)
+
+See also: [networking-decisions.md](networking-decisions.md), [hermes-vm-vs-kubernetes.md](../agents/hermes-vm-vs-kubernetes.md), [waha-and-mcp.md](../agents/waha-and-mcp.md).

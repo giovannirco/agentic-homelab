@@ -4,7 +4,7 @@ description: >
   Expose lab apps via Cloudflare Tunnel without opening home WAN ports; token
   hygiene; 301 loop footguns. Triggers: /cloudflare-tunnel, cloudflared, public
   hostname, cfargotunnel.
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Cloudflare Tunnel
@@ -13,8 +13,11 @@ version: 1.0.0
 
 ```text
 DNS CNAME → <tunnel-id>.cfargotunnel.com
-cloudflared → http://gateway-or-service:port
+cloudflared → http://envoy-external.network.svc:80   # or your external Gateway Service
 ```
+
+Prefer tunnel → **external** Gateway VIP/Service; keep **internal** Gateway for LAN/split-DNS only.
+
 
 ## Rules
 

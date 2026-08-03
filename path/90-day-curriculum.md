@@ -57,7 +57,7 @@ Assume part-time evenings. Adjust freely.
 ## Stretch (after 90)
 
 - Multi-tenant platform-gitops  
-- WAHA + Chatwoot  
+- WAHA + MCP (agent WhatsApp tools)  
 - Forgejo mirrors  
 - Offsite backups (3-2-1)  
 - Full LGTM stack right-sized  

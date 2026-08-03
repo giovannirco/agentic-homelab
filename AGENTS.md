@@ -30,7 +30,8 @@ Help the human build and operate a **learning homelab** that teaches **platform 
 | `docs/platform/` | Architecture patterns |
 | `docs/agents/` | Hermes / OpenClaw / MCP |
 | `docs/lessons/` | Hard-won footguns |
-| `skills/` | Portable agent skills |
+| `skills/` | Portable agent skills (incl. cilium LB-IPAM, multus, hermes dual, waha) |
+| `docs/platform/networking-decisions.md` | Real networking choices, placeholders |
 | `templates/` | Copy-paste starters |
 | `path/` | Curriculum timelines |
 | `scripts/` | Install helpers |
@@ -54,7 +55,7 @@ Help the human build and operate a **learning homelab** that teaches **platform 
 ## Out of scope unless asked
 
 - Multi-org tenant fan-out
-- Production company WAHA/Chatwoot fleets
+- Production multi-tenant WAHA fleets (document generically only)
 - Breaking-glass Omni recovery (link skill, only if learner uses Omni)
 
 ## Security
