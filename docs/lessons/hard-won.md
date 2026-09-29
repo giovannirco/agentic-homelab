@@ -15,8 +15,18 @@ Recurring failures worth preventing on day one.
 6. **Tunnel origin http vs https mismatch → 301 loops.**
 7. **external-dns ownership TXT** — manual DNS records block automation; delete or adopt.
 8. **Split-horizon DNS** — public DoH clients bypass LAN VIP and hit Cloudflare; teach users.
-9. **Do not DNAT all of DNS on a “servers” VLAN** without excluding the DNS servers themselves (forwarder blackhole).
+9. **Do not DNAT all of DNS on a “servers” VLAN** without excluding the DNS servers themselves (forwarder blackhole). Better: resolvers on a **dedicated DNS network**, redirect "dst not DNS network" everywhere else.
 10. **Cluster must resolve internal hostnames to in-cluster/LAN** or agents get Cloudflare 400s calling public URLs from pods.
+
+## Network & hardware
+
+39. **Check error counters before blaming Wi-Fi.** A LAN that's slow while the internet is fast on the same Wi-Fi → look at uplink rx_errors/drops; swap port roles to see if the fault follows the cable or the port.
+40. **Re-check negotiated link speeds after any cable work**: a marginal patch cable links at 100 Mb/s and looks like a flaky server.
+41. **Your admin path is part of the change**: laptops auto-join old SSIDs; a display's USB Ethernet sleeps. Wire into a management-only break-glass port.
+42. **Temporary second IP** on the controller before renumbering its own network; dead-man switch before changing a remote host's network.
+43. **NFS mounts keep their old source IP** after a host re-IP → hang; lazy-unmount and remount.
+44. **CGNAT:** many ISPs will remove it if you ask for a dynamic public IPv4; still double NAT behind the ISP router → DMZ to your gateway's (pinned) WAN IP.
+45. **Controller APIs can ignore fields silently** (e.g. UniFi `setting_preference: auto`): read back after every write.
 
 ## Storage
 
@@ -24,7 +34,7 @@ Recurring failures worth preventing on day one.
 12. **Never put Galera/data dirs on NFS.**
 13. **NFS root_squash** — do not initContainer chown; match app UID.
 14. **Strict-local volumes** pin pods to nodes; wrong node → Pending/faulted forever.
-15. **Backups are mandatory even with 2 replicas** — HA is not backup.
+15. **Backups are mandatory even with 2 replicas** — HA is not backup. **Never back up to RAID0**, and restore-test once.
 
 ## Databases
 

@@ -46,6 +46,8 @@ Same software path, different boxes. Choose by budget and how much HA you need *
 
 **GitOps:** `cluster-gitops` + one `platform-gitops` recommended once Argo is stable.
 
+**A common real-world B:** a low-power mini PC as the always-on **utility host** (UniFi/network controller VM, 2× DNS LXCs, Home Assistant VM, an agent LXC, a speedtest) plus a **GPU tower** as the single Talos node. Watch the mini PC's RAM (16 GB fills up fast) and its PSU (throttle heavy I/O). With plenty of RAM on the Talos box (e.g. 128 GB), **single-node Rook-Ceph** is viable for block + CephFS + S3 on day one; backups are the redundancy. The NAS can serve both an old and a new network during a migration (two NICs, static routes for the new ranges).
+
 ## Topology C — HA Talos (3× bare metal) + separate Proxmox
 
 **Best for:** serious lab / “platform-shaped” production mimic. Matches a mature homelab shape.

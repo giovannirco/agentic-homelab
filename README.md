@@ -13,9 +13,15 @@ This repository is a **quick start + operator handbook** for that stack. Fill in
 ## Architecture (day-1 shape)
 
 ```text
+Network foundation (layer 0)
+  ├── segmented VLANs + zone firewall (default-deny, named flows)
+  ├── dedicated DNS network + DNS enforcement
+  └── automatic device names from DHCP
+
 Mini-PC + Proxmox
   ├── VM: Agent (Hermes / OpenClaw)
-  ├── VM: Technitium (split-DNS)
+  ├── LXC ×2: Technitium (split-DNS, on the DNS VLAN)
+  ├── nightly backups → NAS (redundant volume)
   └── VM: Talos (Kubernetes)
 
 GitHub
@@ -40,6 +46,7 @@ Agent skills (this repo) + learning/ops channel
 | # | Doc | Outcome |
 |--:|-----|---------|
 | 0 | [docs/00-philosophy.md](docs/00-philosophy.md) | Principles and control loop |
+| 0.5 | [docs/network/network-foundation.md](docs/network/network-foundation.md) | Addressing, zones, DNS network, device names, Wi-Fi: **before** the cluster |
 | 1 | [docs/setup/01-shopping-list.md](docs/setup/01-shopping-list.md) | Hardware and accounts |
 | 2 | [docs/setup/02-proxmox-base.md](docs/setup/02-proxmox-base.md) | Hypervisor |
 | 3 | [docs/setup/03-agent-vm.md](docs/setup/03-agent-vm.md) | Hermes / OpenClaw VM |
@@ -63,6 +70,7 @@ Agent skills (this repo) + learning/ops channel
 | [docs/platform/networking-decisions.md](docs/platform/networking-decisions.md) | Cilium LB, Multus, dual Gateway |
 | [docs/platform/observability-tiers.md](docs/platform/observability-tiers.md) | Observability tier cheat sheet |
 | [docs/platform/architecture.md](docs/platform/architecture.md) | Target architecture summary |
+| [docs/network/network-foundation.md](docs/network/network-foundation.md) | Layer 0: addressing, zones, DNS network, device names |
 | [docs/network/home-network-controllers.md](docs/network/home-network-controllers.md) | UniFi / MikroTik / Omada |
 | [docs/agents/](docs/agents/) | Hermes VM vs k8s, WAHA MCP |
 | [docs/lessons/hard-won.md](docs/lessons/hard-won.md) | Operational footguns |

@@ -9,7 +9,7 @@ Opinionated networking for a Talos + Gateway API lab. Replace example CIDRs and 
 | CNI | **Cilium** (native routing, kube-proxy replacement) | Flannel / Calico default |
 | Service type LoadBalancer | **Cilium LB-IPAM** + **Cilium L2 Announcement** | Standalone MetalLB |
 | Extra NICs on pods | **Multus** + macvlan NetworkAttachmentDefinitions | HostNetwork everywhere |
-| L7 ingress | **Envoy Gateway** (Gateway API only; no legacy Ingress) | nginx-ingress as primary |
+| L7 ingress | **Gateway API**: Envoy Gateway (one Envoy per Gateway: clean per-gateway metrics, rich policy CRDs) **or Cilium Gateway** (no extra components, also serves legacy `Ingress` for charts that only template it) | ingress-nginx (retired upstream, unmaintained since March 2026) |
 | Dual plane | **envoy-internal** (LAN) + **envoy-external** (tunnel/WAN) | Single gateway for everything |
 | Public edge | **Cloudflare Tunnel** → external gateway | Open 80/443 on home router |
 
@@ -122,6 +122,10 @@ spec:
 | Optional apps | Syncthing discovery/sync, specialty L4 |
 
 Default for app Services: **ClusterIP**. Do not LB-expose every DB.
+
+### Optional: LoadBalancer VIPs on their own VLAN
+
+Instead of carving a VIP range out of the servers LAN, give the nodes a **tagged interface on a dedicated K8s-LB VLAN** and point `CiliumL2AnnouncementPolicy.interfaces` at it. The VIPs then live in their own firewall zone, so "people may reach the apps on 80/443" is one rule. (BGP with the gateway is the alternative; more moving parts.)
 
 ## 3. Multus (secondary interfaces)
 

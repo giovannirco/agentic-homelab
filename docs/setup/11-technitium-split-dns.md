@@ -49,7 +49,7 @@ Follow upstream install docs (native package or their install script). Enable AP
 
 | Setting | Guidance |
 |---------|----------|
-| Forwarders | Explicit `1.1.1.1`, `1.0.0.1`, `8.8.8.8` (UDP) |
+| Forwarders | Explicit, preferably **DNS-over-HTTPS** (`https://cloudflare-dns.com/dns-query (1.1.1.1)` + `(1.0.0.1)`, protocol Https) so the ISP doesn't see queries; UDP `1.1.1.1`/`1.0.0.1` also works |
 | Recursion | Allow only private networks (or equivalent) |
 | DNSSEC validation | On after forwarders work |
 
@@ -63,7 +63,14 @@ For each domain you use on LAN (e.g. `lab.example.com`):
 2. Allow updates from external-dns via **TSIG** key (create key e.g. name `external-dns`, algorithm hmac-sha256).  
 3. ACL: allow that TSIG for updates on the zone.
 
-### 5. Optional secondary + catalog (HA)
+### 4b. Blocking per network, logs with names
+
+- **Advanced Blocking** app: map client networks to groups (e.g. people: HaGeZi `pro` + `tif.medium`; TVs/IoT: `pro.plus` + native-tracker lists + DoH-bypass list; guests/printers: `tif.medium`; servers/k8s: none). Technitium takes HaGeZi's **wildcard domains** format (`…/wildcard/<list>-onlydomains.txt`). **Replace the app's example config**: it blocks for everyone.
+- **Query Logs (Sqlite)** app, plus conditional forwarder zones for the reverse ranges and for `local.<domain>` → the gateway, so logs and lookups show device names ([network-foundation](../network/network-foundation.md) §4).
+
+### 5. Optional secondary: clustering (v14+) or catalog (HA)
+
+Technitium **14+ has built-in clustering**: the primary node pushes settings, apps and zones to secondaries. The **cluster domain can't be changed later**: pick an internal name deliberately. Older versions / without clustering: use a catalog zone:
 
 Only when you have a second DNS host:
 

@@ -43,25 +43,29 @@ WAN
 - DNS servers option: Technitium primary (+ optional secondary)  
 - **Exclude** Cilium LB pool from DHCP range  
 
-### DNS redirect (optional but powerful)
+### DNS redirect (enforcement)
 
-DNAT or “DNS shield” style rule: client queries to any resolver on :53 → rewrite to Technitium.
+DNAT client queries on :53 to your resolver so devices with hard-coded DNS (Chromecast, some IoT) still use it.
 
-**Hard rule from real outages:**
+**Recommended pattern (proven):** put the resolvers on a **dedicated DNS network**, then add one redirect per network **except the DNS network**: `dst port 53 AND destination NOT the DNS network → primary`. The resolvers' own upstream queries originate from the excluded network, so there's no blackhole, and servers are covered too. Details: [network-foundation.md](network-foundation.md) §3.
 
-> Do **not** redirect **all** traffic on the servers VLAN port 53 toward a DNS box in a way that also rewrites the **DNS server’s own upstream** queries. Primary must reach public resolvers (1.1.1.1:53) unmolested.
-
-Safe pattern:
-
-- Redirect **client/main** VLANs → Technitium  
-- Servers VLAN: set DHCP DNS to Technitium **without** hairpin DNAT, **or** exclude DNS host as source from redirect  
+> Older rule, still true if your resolver shares the servers VLAN: never DNAT that VLAN's :53 in a way that also rewrites the DNS server's own upstream queries.
 
 ### Firewall
 
+Prefer **zones with default-deny** between internal networks and a short list of named allows (see [network-foundation.md](network-foundation.md) §2). Minimum:
+
 - Allow LAN → internal Gateway VIP :80/:443  
-- Allow LAN → Technitium :53  
-- Allow cluster nodes → each other  
-- Optional: block IoT → servers  
+- Allow every zone → DNS :53  
+- Allow cluster nodes → each other, → storage  
+- Block IoT-local and cameras → internet  
+
+### UniFi API quirks (Network 10.x)
+
+- A WLAN copied from another inherits `setting_preference: auto` and the controller **silently ignores** PPSK/WPA3/guest-isolation fields; set `manual`.
+- NAT rules need a unique `rule_index`.
+- UniFi OS rate-limits logins (≈3 quick logins → 429): one session per script run.
+- Some settings (e.g. mDNS scope) accept API writes and ignore them: verify after every write.
 
 ## UniFi-oriented checklist
 

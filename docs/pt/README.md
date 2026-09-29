@@ -10,3 +10,8 @@ Caminho **homelab + agentes de IA → engenharia de plataforma**.
 6. Índice: [../MAP.md](../MAP.md)
 
 **Ideia:** Kubernetes é a estrada. GitOps, CNI, tunnel e o agente andam nela. A IA multiplica com skills e permissões certas — não com cluster-admin solto.
+
+
+## Novo: camada 0 (rede)
+
+Antes do Proxmox e do Kubernetes: plano de endereçamento que escala para várias casas, zonas com bloqueio padrão, uma rede só para DNS (forçar todo mundo a usar seus resolvers e ver quem fala com quem), nomes automáticos para cada dispositivo via DHCP, e poucas redes Wi-Fi com senha por tipo de dispositivo. Veja [docs/network/network-foundation.md](../network/network-foundation.md).

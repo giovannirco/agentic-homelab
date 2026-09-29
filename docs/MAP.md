@@ -3,6 +3,7 @@
 | Topic | Guide | Skill |
 |-------|-------|--------|
 | Philosophy | `docs/00-philosophy.md` | — |
+| Network foundation (layer 0) | `docs/network/network-foundation.md` | `home-network-controllers` |
 | Shopping list | `docs/setup/01-shopping-list.md` | `lab-bootstrap` |
 | Proxmox | `docs/setup/02-proxmox-base.md` | `lab-bootstrap` |
 | Agent VM | `docs/setup/03-agent-vm.md` | `hermes-agent` |
