@@ -4,6 +4,7 @@
 |-------|-------|--------|
 | Philosophy | `docs/00-philosophy.md` | — |
 | Network foundation (layer 0) | `docs/network/network-foundation.md` | `home-network-controllers` |
+| Network testing + NetBench | `docs/network/testing-and-benchmarks.md`, `scripts/netbench.py` | `home-network-controllers` |
 | Shopping list | `docs/setup/01-shopping-list.md` | `lab-bootstrap` |
 | Proxmox | `docs/setup/02-proxmox-base.md` | `lab-bootstrap` |
 | Agent VM | `docs/setup/03-agent-vm.md` | `hermes-agent` |
@@ -21,6 +22,7 @@
 | GitOps repo models | `docs/platform/gitops-repo-models.md` | `gitops-repo-models` |
 | Networking decisions | `docs/platform/networking-decisions.md` | `cilium-networking`, `multus-secondary-net` |
 | Observability tiers | `docs/platform/observability-tiers.md` | `observability` |
+| Old Proxmox node, major upgrades | `docs/platform/proxmox-old-node-and-major-upgrades.md` | `lab-bootstrap` |
 | Architecture | `docs/platform/architecture.md` | — |
 | Home controllers | `docs/network/home-network-controllers.md` | `home-network-controllers` |
 | Hermes VM vs k8s | `docs/agents/hermes-vm-vs-kubernetes.md` | `hermes-agent` |

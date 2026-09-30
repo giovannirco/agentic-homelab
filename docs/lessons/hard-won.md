@@ -27,6 +27,16 @@ Recurring failures worth preventing on day one.
 43. **NFS mounts keep their old source IP** after a host re-IP → hang; lazy-unmount and remount.
 44. **CGNAT:** many ISPs will remove it if you ask for a dynamic public IPv4; still double NAT behind the ISP router → DMZ to your gateway's (pinned) WAN IP.
 45. **Controller APIs can ignore fields silently** (e.g. UniFi `setting_preference: auto`): read back after every write.
+46. **An internet speed test measures one path.** Fast speedtest + slow LAN copies → test same-VLAN vs routed against your own iperf3 box ([testing](../network/testing-and-benchmarks.md)).
+47. **Keep a control.** A second AP on the same SSID/band/room settled in minutes what theories didn't in hours. When a user has a control measurement, it beats the agent's plausible theory.
+48. **UDP loss % is the honest number**; TCP hides loss behind retransmits. Smaller packets doing *worse* = a packets-per-second limit (CPU/forwarding), not bandwidth.
+49. **Pin your 6 GHz channel.** On auto, a 160 MHz radio can quietly run 80 MHz; pinning doubled real throughput. On an empty 6 GHz band, which channel barely matters.
+50. **Thin/flat patch cables may hold 1G but not 2.5G.** Check the negotiated speed after every cable change.
+51. **Set the switch-port profile before plugging in** a host with a DHCP reservation on another VLAN; otherwise it takes a lease on the default network (fix: bounce the port).
+52. **Private Wi-Fi MACs change per SSID** (and rotate), breaking MAC-based admin rules: use hardware MACs on admin devices.
+53. **A NAS static route broader than its own subnet** (e.g. a /16 via the gateway, consulted before the connected route) sends same-subnet traffic through the gateway; the flows become asymmetric and stateful firewalls drop them. Add a more specific on-link route for the local subnet.
+54. **ConnectX-3 NICs silently drop tagged VLANs** with Proxmox's default `bridge-vids 2-4094` (fixed hardware VLAN filter). Limit the range.
+55. **Multi-homed test hosts need source routing and per-address servers**, or replies leave the wrong interface and UDP tests fail.
 
 ## Storage
 
