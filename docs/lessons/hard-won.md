@@ -37,6 +37,13 @@ Recurring failures worth preventing on day one.
 53. **A NAS static route broader than its own subnet** (e.g. a /16 via the gateway, consulted before the connected route) sends same-subnet traffic through the gateway; the flows become asymmetric and stateful firewalls drop them. Add a more specific on-link route for the local subnet.
 54. **ConnectX-3 NICs silently drop tagged VLANs** with Proxmox's default `bridge-vids 2-4094` (fixed hardware VLAN filter). Limit the range.
 55. **Multi-homed test hosts need source routing and per-address servers**, or replies leave the wrong interface and UDP tests fail.
+56. **Find where packets die with interface counters, not theories.** Diff `/proc/net/dev` on the AP before/after an iperf3 run: a radio `tx_errors` rate of 35–63% vs 0.02% on an identical AP proved a faulty unit after a factory reset changed nothing.
+57. **One `top` frame lies** on small devices (it includes your SSH login): use `top -bn2 -d 4`.
+58. **A switch cable from the old network in a new trunk port merges both LANs** (two DHCP servers, two spanning trees). After any cable move check the port's learned MACs and PoE draw; disable first, investigate after.
+59. **UniFi saves a settings page as one form**: one invalid field (e.g. an empty SNMP v1/v2c community while enabling v3) makes every change on that page fail.
+60. **Give the printer its own network**: it's the least-patched device in the house. DNS only, no internet, print/scan ports from the people network.
+61. **Firewall zones can't separate devices on the same VLAN**: if two device types shouldn't talk, they need different networks, not a rule.
+62. **Use your country's regulatory domain.** Rules change (e.g. Brazil limits 6 GHz Wi-Fi to 5925–6425 MHz from 2027); pick channels that stay legal.
 
 ## Storage
 

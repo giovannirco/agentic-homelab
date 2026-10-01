@@ -4,6 +4,7 @@
 |-------|-------|--------|
 | Philosophy | `docs/00-philosophy.md` | — |
 | Network foundation (layer 0) | `docs/network/network-foundation.md` | `home-network-controllers` |
+| Network logging (SIEM without NetFlow) | `docs/network/logging-without-netflow.md` | `home-network-controllers` |
 | Network testing + NetBench | `docs/network/testing-and-benchmarks.md`, `scripts/netbench.py` | `home-network-controllers` |
 | Shopping list | `docs/setup/01-shopping-list.md` | `lab-bootstrap` |
 | Proxmox | `docs/setup/02-proxmox-base.md` | `lab-bootstrap` |
