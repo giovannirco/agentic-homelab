@@ -70,6 +70,11 @@ These are from recent sessions on one lab. They are the reason the rules above e
 | A pod was started with output attached and the command hung | Detach background commands in pods: redirect output and stdin |
 | A recovery note still said "fall back to the old network" four days after that network was unplugged | Re-read plans and recovery notes after every migration step |
 | After a compaction, the state had to be re-derived from logs and git history | The goal file and the resume routine |
+| A slow disk was explained from ten seconds of statistics ("too many databases on one drive") and the explanation was published; the host's own per-minute history showed the same load had run a day without trouble | Read the history before naming a cause: what was this number yesterday, what changed at the minute it moved |
+| The agent waited sixteen minutes on a program it had decided was slow; the program was restarting in a loop on a config error | Read the log and the process state before giving something more time |
+| A status line ("backups run daily") was repeated from an older note into a new summary; the backup tool was no longer installed | A claim about live state gets a live check and a date, or it is not written |
+| A recording's transcript was described from its first ninety characters ("it heard a different song"); read in full, the words were right and most of the song was simply missing from the transcript | Read all of the evidence before describing it |
+| A difference between two groups of results was given a cause (lyric length) while the groups also differed in language and style | Before naming the cause of a difference, list what else differs |
 
 ## What the operator can expect at the end
 A report that can be acted on: what changed, where it lives (path, commit), what is waiting for a decision, and the next command if there is one. Not a list of everything that was tried.

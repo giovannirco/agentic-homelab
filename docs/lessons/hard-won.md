@@ -72,6 +72,8 @@ Recurring failures worth preventing on day one. The numbers are stable identifie
 74. **Memory limits at 150–250 % of a node's RAM are a schedule of OOM kills**, not headroom.
 75. **Large image unpacks on a control plane stall the API** when the runtime shares a disk with etcd. Roll heavy images out one at a time.
 76. **The kubelet evicts at 15 % free on the image filesystem.** A model cache inside a container fills a small node disk in an afternoon; caches and environments belong on network storage.
+105. **A ZFS pool on a client SSD under VMs needs TRIM more often than monthly.** The installer's pool had `autotrim` off, and the distribution trims on the first Sunday of the month. Fifteen small VMs ran a day without trouble; then, in three minutes and with no change in load, I/O pressure went from 0 to 18 %, and to 50 % by noon: 43 ms per write. One `zpool trim` (2 min 18 s) brought it to 9 ms. Check `zpool get autotrim` and `zpool status -t` on any pool an installer made.
+106. **Seven etcd members at rest ask a drive for about ninety flushes a second.** Workers ask for almost none. Size the control planes' disk by flushes, not by megabytes.
 
 ## Databases
 
@@ -146,6 +148,13 @@ Recurring failures worth preventing on day one. The numbers are stable identifie
 
 103. **Status lines rot first.** A plan still titled "not executed" after it ran, or a recovery document that says "fall back to the old network" after the old network is gone, will mislead the next person at the worst moment. Re-read plans and recovery notes after every migration step.
 104. **A run record beats a plan.** Keep both: the plan says why, the record says what was typed and what came back.
+107. **Read the history before naming a cause.** A snapshot gives you an explanation that fits; the record tells you whether it can be true. Find the minute it began and ask what changed at that minute, and what did not. The explanation "too many databases on one drive" fitted ten seconds of statistics and could not explain the sixteen quiet hours before them.
+108. **A baseline you promise in a write-up is a baseline you take** before anyone quotes the write-up. The one that was owed here overturned the conclusion.
+109. **A sentence about live state needs a live check and a date.** "Backups run daily" was copied from note to note for two months after the backup tool had stopped existing in the cluster.
+110. **A number needs a record wherever it appears,** titles included. Forty video titles had passed a linter for length and shape; four contradicted the project's own run records and nine had no source at all.
+111. **Config written by hand on a guest is committed the day it is written.** One log collector's three files existed only on a host that died; they were recovered from the transcript of the agent session that had typed them.
+112. **A blocklist inflates the count of what it blocks.** One TV made 5,000 DNS lookups in a day; 3,863 were retries for two refused logging hosts. "It phones home N times a day" describes the block as much as the device.
+113. **Copying a folder from a Mac with `tar` adds a hidden `._name` file beside each entry.** A program that reads every file in a config directory will choke on one. `COPYFILE_DISABLE=1 tar …` (the Mac's own `tar -t` hides them, so check with another reader).
 
 ## Career
 
