@@ -40,7 +40,7 @@ Talos has no shell, no package manager, and a kernel built without several debug
 
 What didn't exist on the kernel we ran: `i2c-dev` (so no `/dev/i2c-*`, and no RGB control for graphics cards), `/dev/mem`, MSR access (no CPU undervolting tools). Do those once from another OS; a netboot live Linux is the easy way in.
 
-**A privileged probe pod** is the tool for the rest: host PID and network, `/sys` and `/dev` mounted, the GPU runtime class, a scratch volume for tools. Create it when needed, delete it when done.
+**A privileged probe pod** is the tool for the rest: `privileged: true` (which exposes the host's devices and a writable `/sys`), the GPU runtime class with every card visible, and a scratch volume on network storage for the tools it downloads. Create it when needed, delete it when done.
 
 Knobs that need that pod (a normal pod gets "Insufficient Permissions"): GPU power limit, target temperature, clock offsets, fan speed; board PWM outputs; USB fan controllers.
 

@@ -43,7 +43,7 @@ Same model, same firmware, same limits on paper. Under load:
 | Unthrottled, first seconds | both about 60 it/s | |
 
 - Read the **throttle reason**, not just the temperature: `nvidia-smi -q` shows it, and the lifetime counters say how long the card has spent in thermal slowdown since boot.
-- Card A throttled at a core temperature well under its target. The first hypothesis was hot memory chips. **Measuring said no:** memory was at 62 °C when throttling began. Memory temperature isn't exposed by the driver on these cards; it can be read from a GPU register through the PCI resource file from a privileged pod. The remaining explanation (a hot spot on the die from dried paste) is an inference until someone opens the card.
+- Card A throttled at a core temperature well under its target. The first hypothesis was hot memory chips. **Measuring said no:** memory was at 62 °C when throttling began, and under sustained load it was the same on both cards (86–92 °C). Memory temperature isn't exposed by the driver on these cards; it can be read from a GPU register through the PCI resource file from a privileged pod. The remaining explanation (a hot spot on the die from dried paste) is an inference until someone opens the card.
 - The card with the KVM's display attached never stopped its fans, while the other stopped them at idle. Note differences like this; don't diagnose from them.
 
 ## Power limits: choose them on real jobs
@@ -56,6 +56,8 @@ A synthetic sweep suggested 225 W for the stronger card. Real image jobs disagre
 | 225 W | 5.85 s (+22 %) | 172 s (+17 %) |
 
 The card reached 89–91 °C at every limit, so the limit bought less heat in the room and less fan noise, not a cooler die. 250 W for the strong card and 200 W for the weak one was the choice. A core clock offset gave nothing at the lower limit.
+
+For the weak card a limit made it **faster**: 28 it/s at 200 W against 20 it/s unlimited in a warm case. Thermal slowdown cuts the clock harder than a power limit does.
 
 Mechanics:
 - `nvidia-smi -pl`, target temperature, clock offsets and fan control return "Insufficient Permissions" from a normal pod. They need a **privileged** pod with the GPUs visible.
