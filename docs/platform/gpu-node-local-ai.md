@@ -47,7 +47,7 @@ Same model, same firmware, same limits on paper. Under load:
 - The card with the KVM's display attached never stopped its fans, while the other stopped them at idle. Note differences like this; don't diagnose from them.
 
 ## Power limits: choose them on real jobs
-A synthetic sweep suggested 225 W for the stronger card. Real image jobs disagreed:
+A synthetic sweep suggested 225 W for the stronger card (thermal flag gone, core 10 °C cooler, 13 % less work). Real image jobs disagreed:
 
 | Limit | Short job | Long job |
 |---|---|---|

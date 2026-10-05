@@ -100,7 +100,7 @@ Recurring failures worth preventing on day one. The numbers are stable identifie
 95. **A goal file with a checkable "done when"** and a resume routine survives what chat history doesn't ([long-sessions](../agents/long-sessions.md)).
 96. **A plausible theory is a hypothesis until measured.** Label which one you are reporting (see also 47).
 97. **Keep the runs that went wrong**, named and explained. A labelled bad benchmark is evidence.
-98. **Say what you substituted** when the first source was blocked. The operator asked for the real thing.
+98. **Blocked is not the end.** Say what is blocked, try another route, and never swap in a weaker source without saying so. The operator asked for the real thing.
 99. **Redact at the source.** Inventory commands print credentials (kernel command lines, environment dumps); a scratch file is still a file.
 100. **Background waiters wait on a PID or a file**, never on a process-name search that matches their own command line.
 101. **"Waiting for the operator" is a list, not a stop.** Write the question down and continue with what doesn't depend on it.
@@ -130,7 +130,7 @@ Recurring failures worth preventing on day one. The numbers are stable identifie
 78. **Read the throttle reason and its lifetime counter**, not only the temperature. A card can throttle well below its target.
 79. **Log temperature beside every benchmark.** The same test read 1,010 tokens/s early and 449 at the end of a long sweep.
 80. **An LLM server may cut an oversized prompt and answer anyway.** Ask for an error instead, and check the prompt token count in the response.
-81. **Choose power limits on real jobs.** A synthetic sweep said one limit was free; real jobs lost 17–22 % at it.
+81. **Choose power limits on real jobs.** A synthetic sweep promised a card 10 °C cooler for 13 % less work at one limit; real jobs lost 17–22 % there and ran one degree cooler.
 82. **GPU knobs need a privileged pod and are lost at reboot.** Re-apply them from a small DaemonSet kept in git.
 83. **System RAM, not GPU memory, was the first limit.** One GPU app at a time, the others scaled to zero.
 84. **The same input returns from cache.** Vary the seed when timing, and treat an impossible number as a bug in the test.

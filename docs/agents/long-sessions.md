@@ -60,13 +60,15 @@ These are from recent sessions on one lab. They are the reason the rules above e
 | What happened | Rule |
 |---|---|
 | A confident explanation for a slow graphics card (hot memory chips) was wrong; measuring the memory temperature disproved it | A plausible theory is a hypothesis until measured. Say which it is |
-| A power limit looked free in a synthetic test; on real jobs it cost 17–22 % of the speed | Choose settings on the workload that matters |
+| A ninety-minute benchmark sweep had no temperature in its log; the same test read 1,010 tokens/s early and 449 at the end, because one card was throttling | Log temperature and throttle state beside every result |
+| A long system upgrade ran over a plain SSH session, three steps batched into one; the host lost power mid-way and booted to a `grub>` prompt | Long jobs run detached, with a log, one step at a time, with a known-good kernel pinned |
 | Two "measurements" took half a second each: the application had returned cached results | Vary the input when timing; treat an impossible number as a bug in the test |
 | A comparison between two devices ran on the same device twice, because the numbering changed with a config flag | Print which physical device each run used |
-| Blocked from one source, the agent quietly used a weaker one (descriptions instead of transcripts) | Say what was substituted; the operator asked for the real thing and there was a way |
+| Blocked from one source, the agent settled for a weaker one (video descriptions instead of transcripts); the operator had asked for the real thing, and there was a way to get it | Blocked is not the end: say what is blocked, try another route, never substitute without saying so |
 | A command's output contained a credential and went to a scratch file | Redact at the source; scan scratch afterwards; never write it to a repo or a reply |
 | A background waiter used `pgrep -f` with a pattern that matched its own command line, and never finished | Wait on a PID or a file, not on a process-name search |
 | A pod was started with output attached and the command hung | Detach background commands in pods: redirect output and stdin |
+| A recovery note still said "fall back to the old network" four days after that network was unplugged | Re-read plans and recovery notes after every migration step |
 | After a compaction, the state had to be re-derived from logs and git history | The goal file and the resume routine |
 
 ## What the operator can expect at the end

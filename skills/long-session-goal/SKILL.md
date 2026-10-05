@@ -38,7 +38,7 @@ Full guide: `docs/agents/long-sessions.md` (includes the file template).
 1. Numbers only from logs. An unmeasured explanation is labelled a hypothesis.
 2. Capture proof at the moment it happens.
 3. Keep runs that went wrong, named and explained.
-4. Say what you substituted when a source was blocked.
+4. When a source is blocked, say so and try another route; never substitute without saying so.
 5. Redact credentials at the source; scan scratch afterwards.
 
 ## At the end
