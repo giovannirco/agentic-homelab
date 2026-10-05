@@ -21,15 +21,18 @@ Help the operator build and run an **agentic homelab** that practices **platform
 5. Sequential upgrades only (Talos minor gates Kubernetes max).  
 6. One operator per database engine cluster-wide.  
 7. Use `explain-as-you-go` when the operator wants guided learning.  
+8. Report numbers only from logs; label an unmeasured explanation as a hypothesis; keep the runs that went wrong.  
+9. Redact tokens at the source: a node's kernel command line and environment dumps can contain join tokens and keys.  
+10. For work that spans hours, keep a goal file and follow its resume and checkpoint routines (`long-session-goal`).  
 
 ## Repo map
 
 | Path | Role |
 |------|------|
 | `docs/setup/` | Ordered bootstrap (01–13) |
-| `docs/platform/` | Topologies, GitOps models, networking, observability |
+| `docs/platform/` | Topologies, GitOps models, networking, observability, Omni + netboot, L2 vs BGP, GPU node, hardware audit, disk and etcd health |
 | `docs/network/` | Home controllers |
-| `docs/agents/` | Hermes, WAHA MCP |
+| `docs/agents/` | Hermes, WAHA MCP, MCP servers on the LAN, long sessions |
 | `docs/lessons/` | Operational footguns |
 | `docs/MAP.md` | Doc ↔ skill index |
 | `skills/` | Installable agent skills |
@@ -56,7 +59,7 @@ Help the operator build and run an **agentic homelab** that practices **platform
 ## Out of scope unless requested
 
 - Full multi-tenant company product stacks  
-- Omni break-glass recovery procedures  
+- Omni break-glass recovery procedures (the identity rules that prevent needing them are in `docs/platform/omni-and-netboot.md`)  
 - Copying live production secrets or topology  
 
 ## Security

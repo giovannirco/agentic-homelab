@@ -5,7 +5,7 @@ description: >
   Cloudflare Tunnel, Technitium split-DNS, external-dns, agent GH App + kube
   access, first app, observability tier. Triggers: /lab-bootstrap, new lab,
   first cluster, setup homelab, start from zero.
-version: 1.1.0
+version: 1.2.0
 ---
 
 # Lab bootstrap
@@ -28,11 +28,20 @@ Follow `docs/setup/01` through `docs/setup/13` for the topology in use
 11. Observability Tier 0 (Cloud Free) or Tier 1 light stack
 12. Issue board for remaining work
 
+## Later chapters (only when asked)
+
+- More than one cluster, or machines that change roles → `omni-netboot` (`docs/platform/omni-and-netboot.md`)
+- LoadBalancer IPs over BGP → `cilium-networking` (`docs/platform/loadbalancer-l2-vs-bgp.md`)
+- A GPU node for local AI → `local-ai-gpu-node`
+- Second-hand hardware → audit it first (`docs/platform/know-your-hardware.md`)
+- Work that spans hours → `long-session-goal`
+
 ## Agent behavior
 
 - Prefer GitOps and skills over ad-hoc cluster edits.
 - After each major step: verify + short issue comment.
 - Never invent IPs or domains — ask or use documented examples.
+- Report numbers only from logs; label an unmeasured explanation as a hypothesis.
 - Use `explain-as-you-go` when the operator wants guided narration.
 
 ## Verify skeleton

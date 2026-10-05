@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-# Install agentic-homelab skills into Grok and/or Hermes skill dirs.
+# Install agentic-homelab skills into Grok, Hermes and/or Claude Code skill dirs.
 #
 # Usage:
 #   bash scripts/install-skills.sh
 #   bash scripts/install-skills.sh --hermes
 #   bash scripts/install-skills.sh --grok
-#   bash scripts/install-skills.sh --both
+#   bash scripts/install-skills.sh --claude   # ~/.claude/skills (restart the CLI afterwards)
+#   bash scripts/install-skills.sh --both     # Grok + Hermes
+#   bash scripts/install-skills.sh --all      # Grok + Hermes + Claude Code
 #   AGENTIC_HOMELAB_DEST=~/.custom/skills bash scripts/install-skills.sh
 set -euo pipefail
 
@@ -17,9 +19,11 @@ for arg in "$@"; do
   case "$arg" in
     --hermes) MODE="hermes" ;;
     --grok)   MODE="grok" ;;
+    --claude) MODE="claude" ;;
     --both)   MODE="both" ;;
+    --all)    MODE="all" ;;
     -h|--help)
-      sed -n '2,12p' "$0"
+      sed -n '2,11p' "$0"
       exit 0
       ;;
   esac
@@ -56,6 +60,12 @@ install_to() {
 case "$MODE" in
   custom) install_to "${AGENTIC_HOMELAB_DEST}" ;;
   hermes) install_to "${HOME}/.hermes/skills" ;;
+  claude) install_to "${HOME}/.claude/skills" ;;
+  all)
+    install_to "${HOME}/.grok/skills"
+    install_to "${HOME}/.hermes/skills"
+    install_to "${HOME}/.claude/skills"
+    ;;
   both)
     install_to "${HOME}/.grok/skills"
     install_to "${HOME}/.hermes/skills"

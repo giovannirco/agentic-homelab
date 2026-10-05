@@ -125,7 +125,9 @@ Default for app Services: **ClusterIP**. Do not LB-expose every DB.
 
 ### Optional: LoadBalancer VIPs on their own VLAN
 
-Instead of carving a VIP range out of the servers LAN, give the nodes a **tagged interface on a dedicated K8s-LB VLAN** and point `CiliumL2AnnouncementPolicy.interfaces` at it. The VIPs then live in their own firewall zone, so "people may reach the apps on 80/443" is one rule. (BGP with the gateway is the alternative; more moving parts.)
+Instead of carving a VIP range out of the servers LAN, give the nodes a **tagged interface on a dedicated K8s-LB VLAN** and point `CiliumL2AnnouncementPolicy.interfaces` at it. The VIPs then live in their own firewall zone, so "people may reach the apps on 80/443" is one rule.
+
+**If that interface has no IP address, add an ARP keepalive**, or connections reset after five idle minutes (the NIC never transmits, switches forget its MAC, and frames flood to every node). BGP with the gateway is the alternative: more moving parts, and a failover of about 2 s instead of about 16 s. Both, measured, with the traps: [loadbalancer-l2-vs-bgp.md](loadbalancer-l2-vs-bgp.md).
 
 ## 3. Multus (secondary interfaces)
 
@@ -147,6 +149,13 @@ Instead of carving a VIP range out of the servers LAN, give the nodes a **tagged
 | GPU NIC | Pods that should egress on GPU host interface |
 
 **Footgun:** macvlan + static IP + init policy-routing can flap (`address already in use`, stuck Init). Prefer simpler DNS topologies on day 1 (DNS VM **outside** the cluster is often more reliable than Multus DNS).
+
+**Multus beside Cilium on Talos (tested 2026-10):**
+- Cilium in exclusive mode renames Multus's config file to `*.cilium_bak` without a word. Set `cni.exclusive: false` **and** `rollOutCiliumPods: true` (a value change alone doesn't restart the agents).
+- Talos ships no macvlan/ipvlan/static plugins. Install the reference CNI plugins with a DaemonSet that copies checksum-verified binaries into `/opt/cni/bin`; it re-runs after every reboot or upgrade.
+- Static IPAM outside the DHCP range worked; the DHCP IPAM plugin never created its socket in our test.
+- A pod on an IoT network keeps its default route on the cluster network and still receives mDNS on the second interface, which is what home-automation discovery needs.
+- Without Multus: give one worker an address on that network and run the pod with `hostNetwork`, pinned to it.
 
 ## 4. Gateway API (Envoy Gateway)
 
@@ -184,3 +193,4 @@ HTTPRoutes attach with `parentRefs` and **sectionName** matching listeners / cer
 - `skills/multus-secondary-net/`
 - `skills/cloudflare-tunnel/`
 - `docs/setup/05-cilium-and-lb.md`
+- [loadbalancer-l2-vs-bgp.md](loadbalancer-l2-vs-bgp.md) · [omni-and-netboot.md](omni-and-netboot.md)

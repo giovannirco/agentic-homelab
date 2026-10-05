@@ -9,6 +9,8 @@
 | Optional second disk | Media / backups later |
 | Wired Ethernet | Prefer 2.5 GbE if possible; Wi‑Fi only for learning (not stable lab) |
 | UPS | Optional but recommended once stateful |
+| Optional: a GPU box for local AI | Check before buying: how many memory channels are really wired, which PCIe slots hang off the CPU, PSU headroom for the cards at full load, and a system disk big enough that image pulls don't trigger eviction. Second-hand graphics cards of the same model can behave very differently under load. See [know-your-hardware](../platform/know-your-hardware.md) and [gpu-node-local-ai](../platform/gpu-node-local-ai.md) |
+| Optional: a network KVM | Lets an agent read firmware screens, boot ISOs and audit a machine without you in the room |
 
 ## Accounts & free tiers
 

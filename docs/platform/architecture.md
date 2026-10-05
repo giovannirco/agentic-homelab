@@ -43,9 +43,11 @@
 1. Single-node + tunnel + 3 apps  
 2. Operators (DB) + backups  
 3. Observability (Grafana + logs)  
-4. Second node / Omni  
+4. Second node / Omni + netboot ([omni-and-netboot.md](omni-and-netboot.md))  
 5. Multi-repo cluster-gitops vs platform-gitops  
-6. Multi-tenant org fan-out (advanced)
+6. Multi-tenant org fan-out (advanced)  
+7. Lab clusters as VMs, LoadBalancer IPs over BGP ([loadbalancer-l2-vs-bgp.md](loadbalancer-l2-vs-bgp.md))  
+8. A GPU node for local AI, with an MCP endpoint for agents ([gpu-node-local-ai.md](gpu-node-local-ai.md))
 
-See also: [networking-decisions.md](networking-decisions.md) · [hardware-topologies.md](hardware-topologies.md) · [gitops-repo-models.md](gitops-repo-models.md) · [hermes-vm-vs-kubernetes.md](../agents/hermes-vm-vs-kubernetes.md) · [waha-and-mcp.md](../agents/waha-and-mcp.md).
+See also: [networking-decisions.md](networking-decisions.md) · [hardware-topologies.md](hardware-topologies.md) · [gitops-repo-models.md](gitops-repo-models.md) · [disk-and-etcd-health.md](disk-and-etcd-health.md) · [hermes-vm-vs-kubernetes.md](../agents/hermes-vm-vs-kubernetes.md) · [waha-and-mcp.md](../agents/waha-and-mcp.md) · [mcp-on-the-lan.md](../agents/mcp-on-the-lan.md) · [long-sessions.md](../agents/long-sessions.md).
 

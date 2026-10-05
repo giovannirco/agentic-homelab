@@ -5,7 +5,7 @@ description: >
   self-hosted Grafana+Prometheus+Loki single, or full LGTM (Mimir/Loki/Tempo RF=1+).
   Triggers: /observability, LGTM, Mimir, Loki, Tempo, Alloy, Grafana Cloud free,
   k8s-monitoring, light metrics.
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Observability
@@ -28,6 +28,8 @@ Full guide: `docs/setup/13-observability.md`.
 4. Blocks on S3/MinIO; WAL on local NVMe.  
 5. Pin k8s-monitoring chart major; schemas change.  
 6. Secrets OOB for Cloud tokens and MinIO keys.
+7. **Scrape etcd** and alert on WAL fsync p99; alert on a disk that is busy with zero completions (`docs/platform/disk-and-etcd-health.md`).
+8. Ship kernel logs off the node: one flooding message type can hide the line that matters.
 
 ## Default recommendation
 

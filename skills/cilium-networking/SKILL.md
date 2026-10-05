@@ -4,7 +4,7 @@ description: >
   Cilium as cluster CNI with kube-proxy replacement, Cilium LB-IPAM + L2
   Announcement for Service type LoadBalancer (not MetalLB), Gateway notes.
   Triggers: /cilium, CNI, LoadBalancer IP, LB-IPAM, L2 announcement, Hubble.
-version: 1.1.0
+version: 1.2.0
 ---
 
 # Cilium networking
@@ -72,8 +72,20 @@ kubectl get svc -A --field-selector spec.type=LoadBalancer
 - Wrong interface regex → no ARP, VIP unreachable
 - Accepting bootstrap CNI that replaces Cilium during upgrades
 - Calling this MetalLB in GitOps while implementing Cilium (confuses agents)
+- **L2 on a NIC without an IP:** connections reset after five idle minutes (the MAC ages out of the switches and frames flood to every node). Add an ARP keepalive DaemonSet on that NIC, or use BGP
+- L2 failover after a hard node loss is about 15–20 s with default lease timings; that is expected, not a fault
+- VLAN-tagged frames on a Cilium device are dropped unless the VLAN is in `bpf.vlanBypass`
+- Multus beside Cilium needs `cni.exclusive: false` **and** `rollOutCiliumPods: true`; otherwise Cilium renames the other CNI's config file and nothing restarts
+
+## BGP instead of L2 (when the gateway can)
+
+- `bgpControlPlane.enabled: true`; `CiliumBGPClusterConfig` + `CiliumBGPPeerConfig` + `CiliumBGPAdvertisement`.
+- Timers: hold 3 s, keepalive 1 s. **Graceful restart off** (it keeps a dead node's routes; a hard failure took 23.8 s with it, 2 s without).
+- The LB range must not be a network on the gateway. Gateway side: listen range = node network, inbound prefix list = that cluster's LB range, deny-all outbound.
+- Measure: curl in a loop, power a node off, read the gap. Record the number.
 
 ## Related
 
 - Multus: `skills/multus-secondary-net/`
 - Full write-up: `docs/platform/networking-decisions.md`
+- L2 vs BGP, measured: `docs/platform/loadbalancer-l2-vs-bgp.md`

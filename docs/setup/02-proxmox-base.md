@@ -31,7 +31,8 @@ One hypervisor that runs:
 
 ## Networks
 
-- Make `vmbr0` **VLAN-aware** (`bridge-vlan-aware yes`, `bridge-vids 2-4094`) and give the switch port a trunk profile (management untagged, everything else tagged). The host stays on management; each VM/container picks its VLAN with `tag=`.
+- Make `vmbr0` **VLAN-aware** (`bridge-vlan-aware yes`, `bridge-vids 2-4094`) and give the switch port a trunk profile (management untagged, everything else tagged). The host stays on management; each VM/container picks its VLAN with `tag=`. The installer leaves the bridge **not** VLAN-aware.
+- **Old Mellanox ConnectX-3 cards:** the default `bridge-vids 2-4094` overflows the card's hardware VLAN filter and tagged VLANs silently stop passing. List only the VLANs in use.
 - Changing the bridge remotely? Use a dead-man switch: `systemd-run --on-active=180 --unit=netrevert /bin/sh -c 'cp /root/interfaces.bak /etc/network/interfaces && ifreload -a'`, test, then `systemctl stop netrevert.timer`.
 - Give guests **DHCP reservations** rather than static IPs so the gateway knows their names (automatic DNS names, see [network-foundation](../network/network-foundation.md)). Keep static IPs only for the DNS servers themselves.
 - Check the NIC negotiated **1000/full** (`ethtool`): a bad patch cable often links at 100 Mb/s and looks like "Proxmox is flaky".
@@ -44,7 +45,9 @@ One hypervisor that runs:
 # Talos VM: will boot Talos ISO/metal image, 4 vCPU / 8G+ RAM / 60G+ disk
 ```
 
-Prefer **q35** machine type, **host** CPU type for nested virt if needed, and **VirtIO** disks/NICs.
+Prefer **q35** machine type, **host** CPU type for nested virt if needed, and **VirtIO** disks/NICs. A VM created from the command line without a CPU type gets the oldest one, which recent Talos refuses to boot: pass `--cpu x86-64-v2-AES` or `host`.
+
+**A second disk as VM storage (ZFS, single disk):** cap the ARC before creating guests (ZFS otherwise grows into the RAM the VMs need), and at install time select only the system disk for the root pool ("RAID0" with several disks selected stripes across all of them). A disk taken from another host may carry a pool that was never exported: import it read-only to look.
 
 ## Backups (day 1)
 

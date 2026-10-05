@@ -20,6 +20,11 @@
 | external-dns dual | `docs/setup/12-external-dns.md` | `external-dns` |
 | Observability | `docs/setup/13-observability.md` | `observability` |
 | Hardware topologies | `docs/platform/hardware-topologies.md` | — |
+| Hardware audit, sensors and knobs on Talos | `docs/platform/know-your-hardware.md` | `local-ai-gpu-node` |
+| Omni + netboot enrolment | `docs/platform/omni-and-netboot.md` | `omni-netboot`, `talos-upgrade` |
+| LoadBalancer: L2 vs BGP | `docs/platform/loadbalancer-l2-vs-bgp.md` | `cilium-networking` |
+| GPU node for local AI | `docs/platform/gpu-node-local-ai.md` | `local-ai-gpu-node` |
+| Disk and etcd health | `docs/platform/disk-and-etcd-health.md` | `observability` |
 | GitOps repo models | `docs/platform/gitops-repo-models.md` | `gitops-repo-models` |
 | Networking decisions | `docs/platform/networking-decisions.md` | `cilium-networking`, `multus-secondary-net` |
 | Observability tiers | `docs/platform/observability-tiers.md` | `observability` |
@@ -29,6 +34,8 @@
 | Hermes VM vs k8s | `docs/agents/hermes-vm-vs-kubernetes.md` | `hermes-agent` |
 | Hermes / OpenClaw | `docs/agents/hermes-and-openclaw.md` | `hermes-agent` |
 | WAHA MCP | `docs/agents/waha-and-mcp.md` | `waha-mcp` |
+| MCP servers on the LAN | `docs/agents/mcp-on-the-lan.md` | `out-of-band-secrets` |
+| Long agent sessions | `docs/agents/long-sessions.md` | `long-session-goal` |
 | Footguns | `docs/lessons/hard-won.md` | — |
 | 90-day path | `path/90-day-curriculum.md` | — |
 | Databases | — | `homelab-databases` |

@@ -37,6 +37,12 @@ Cluster
   └── cloudflared → public edge
 
 Agent skills (this repo) + learning/ops channel
+
+Later chapters (same road, more machines)
+  ├── Omni + netboot: machines enrol themselves, clusters come from templates
+  ├── lab clusters as VMs; LoadBalancer IPs by L2 or BGP
+  ├── a bare-metal GPU node for local AI (images, LLMs, speech)
+  └── MCP servers so agents can use the network, the NAS, the printer, the GPU
 ```
 
 **Mental model:** Kubernetes is the *road*. GitOps, ingress, databases, and agents ride on it.
@@ -65,14 +71,19 @@ Agent skills (this repo) + learning/ops channel
 
 | Doc | Topic |
 |-----|--------|
-| [docs/platform/hardware-topologies.md](docs/platform/hardware-topologies.md) | 1-box · hybrid · HA + Proxmox |
+| [docs/platform/hardware-topologies.md](docs/platform/hardware-topologies.md) | 1-box · hybrid · HA + Proxmox · lab clusters + GPU worker |
+| [docs/platform/know-your-hardware.md](docs/platform/know-your-hardware.md) | Audit a box before planning; read and control hardware on Talos |
+| [docs/platform/omni-and-netboot.md](docs/platform/omni-and-netboot.md) | Self-hosted Omni, netboot enrolment, cluster templates, the traps |
+| [docs/platform/loadbalancer-l2-vs-bgp.md](docs/platform/loadbalancer-l2-vs-bgp.md) | L2 announcements vs BGP, with measured failover |
+| [docs/platform/gpu-node-local-ai.md](docs/platform/gpu-node-local-ai.md) | Bare-metal Talos GPU worker: storage, two cards, power limits, honest benchmarks |
+| [docs/platform/disk-and-etcd-health.md](docs/platform/disk-and-etcd-health.md) | Why a cluster "never feels stable": a read-only method and two alerts |
 | [docs/platform/gitops-repo-models.md](docs/platform/gitops-repo-models.md) | cluster-gitops vs platform-gitops (simple / multi-org) |
 | [docs/platform/networking-decisions.md](docs/platform/networking-decisions.md) | Cilium LB, Multus, dual Gateway |
 | [docs/platform/observability-tiers.md](docs/platform/observability-tiers.md) | Observability tier cheat sheet |
 | [docs/platform/architecture.md](docs/platform/architecture.md) | Target architecture summary |
 | [docs/network/network-foundation.md](docs/network/network-foundation.md) | Layer 0: addressing, zones, DNS network, device names |
 | [docs/network/home-network-controllers.md](docs/network/home-network-controllers.md) | UniFi / MikroTik / Omada |
-| [docs/agents/](docs/agents/) | Hermes VM vs k8s, WAHA MCP |
+| [docs/agents/](docs/agents/) | Hermes VM vs k8s, WAHA MCP, [MCP servers on the LAN](docs/agents/mcp-on-the-lan.md), [long sessions](docs/agents/long-sessions.md) |
 | [docs/lessons/hard-won.md](docs/lessons/hard-won.md) | Operational footguns |
 | [path/90-day-curriculum.md](path/90-day-curriculum.md) | 90-day progression |
 | [docs/MAP.md](docs/MAP.md) | Full doc ↔ skill index |
@@ -83,7 +94,9 @@ Agent skills (this repo) + learning/ops channel
 ```bash
 bash scripts/install-skills.sh          # ~/.grok/skills
 bash scripts/install-skills.sh --hermes # ~/.hermes/skills
-bash scripts/install-skills.sh --both
+bash scripts/install-skills.sh --claude # ~/.claude/skills (restart the CLI afterwards)
+bash scripts/install-skills.sh --both   # Grok + Hermes
+bash scripts/install-skills.sh --all    # Grok + Hermes + Claude Code
 ```
 
 | Skill | When |
@@ -105,6 +118,9 @@ bash scripts/install-skills.sh --both
 | `talos-upgrade` | Sequential Talos + Kubernetes upgrades |
 | `observability` | Cloud Free, light stack, full LGTM |
 | `explain-as-you-go` | Narrate why while executing |
+| `omni-netboot` | Omni identity rules, netboot enrolment, cluster templates |
+| `local-ai-gpu-node` | GPU worker on Talos: storage, one app at a time, tuning, honest benchmarks |
+| `long-session-goal` | Goal file, resume and checkpoint routines, evidence rules |
 
 ## Templates
 
@@ -120,6 +136,7 @@ bash scripts/install-skills.sh --both
 4. **Verify live** before mutating.  
 5. **Sequential upgrades** for Talos and Kubernetes minors.  
 6. **Never paste secrets** into chat or issue comments.  
+7. **Numbers come from logs.** An explanation that wasn't measured is labelled a hypothesis.  
 
 ## License
 

@@ -4,7 +4,7 @@ description: >
   Sequential Talos + Kubernetes upgrades: compatibility gates, one minor at a time,
   CNI bootstrap caution, verify steps. Triggers: /talos-upgrade, upgrade Kubernetes,
   upgrade Talos, sequential minors.
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Talos + Kubernetes upgrades
@@ -16,6 +16,8 @@ version: 1.0.0
 3. Talos version gates max k8s in catalogs (check live docs/Omni)  
 4. Prefer Omni template sync if Omni manages machines; else talosctl carefully  
 5. After k8s bumps, **diff bootstrap manifests** — do not replace Cilium  
+6. With Omni: change `talos.version` / `kubernetes.version` in the cluster template and `sync`; Omni rolls node by node. Match `omnictl` to the server's API version first ("client API version mismatch" otherwise)  
+7. Omni itself upgrades one minor at a time; cluster health takes a few minutes to return after each restart  
 
 ## Example path shape
 
@@ -45,3 +47,11 @@ kubectl get --raw /healthz?verbose | head
 - Skip minors  
 - Upgrade during storage/network incident  
 - Blindly accept conflicting CNI manifests  
+- Reboot a control plane as a health fix: find what it is waiting for first (`docs/platform/disk-and-etcd-health.md`)  
+- Leave bare pods around: a drain deletes them  
+
+## Notes from real upgrades
+
+- A Talos minor and a Kubernetes minor took about 4–5 minutes each on a two-node lab cluster through Omni.
+- GPU nodes need the extension set that matches the new Talos version; check the schematic before the upgrade, not after.
+- Talos 1.14 moved kube-proxy and the default CNI into their own config documents; patches that disabled them the old way need a look.

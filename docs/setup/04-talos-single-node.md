@@ -39,21 +39,23 @@ kubectl get nodes
 
 Store `secrets.yaml` / talosconfig in a **password manager** or encrypted backup — not in this git repo.
 
-## Path B — Omni later
+## Path B — Omni, when there is more than one
 
-Omni is a control plane for managing many Talos machines with GitOps-ish cluster templates. Use it when:
+Omni manages many Talos machines from cluster templates in git. Use it when:
 
-- You add bare metal nodes
-- You want UI + sequential upgrades catalog
-- You accept running Omni as another LXC/VM
+- you have a second cluster, or machines that change roles;
+- you want machines to enrol by network boot and wait for a template;
+- you accept running one more small service that must be backed up.
 
-Day 1: **talosctl is enough**.
+Day 1 with one node: **talosctl is enough**. The day a second cluster appears, read [omni-and-netboot.md](../platform/omni-and-netboot.md): the identity rules (domain, account ID, fixed IP) are decided once and are painful to change.
 
 ## Single-node notes
 
 - Control plane and workloads share the node — size RAM generously (8 GiB+ guest).
 - Allow scheduling on control plane (Talos/k8s config or taint removal as per current docs).
-- Disk: separate volume for ephemeral/container data if you can.
+- Disk: separate volume for ephemeral/container data if you can. etcd wants a disk that nothing else can saturate ([disk-and-etcd-health.md](../platform/disk-and-etcd-health.md)).
+- VM CPU type: Talos 1.13 and newer need **x86-64-v2**. Use `x86-64-v2-AES` or `host`; the hypervisor's oldest default panics at boot.
+- Pod Security is `baseline` out of the box: a namespace that needs privileged or host-network pods must be labelled `pod-security.kubernetes.io/enforce: privileged`.
 
 ## Install Cilium next
 

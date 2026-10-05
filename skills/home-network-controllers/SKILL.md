@@ -4,7 +4,7 @@ description: >
   UniFi, MikroTik, or Omada for lab networking: VLANs, DHCP DNS, DNS redirect
   footguns, reserve infra IPs, free LB pool. Triggers: /home-network, UniFi,
   MikroTik, Omada, DNS DNAT, VLAN servers.
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Home network controllers
@@ -34,3 +34,10 @@ Never redirect **servers VLAN** :53 in a way that catches the DNS host’s own q
 - Before blaming Wi-Fi: uplink error counters and negotiated link speeds.
 - UniFi API: `setting_preference: manual` for WLAN advanced fields; unique NAT `rule_index`; one login per run (rate limit); read back every write.
 Full doc: `docs/network/network-foundation.md`.
+
+## Moving and adopting switches (added)
+- **Adoption replaces a switch's port configuration.** Save the old port overrides as data first and re-apply them right after adopting, or trunks become "all networks" and native VLANs reset.
+- **After any cable move, read the port's LLDP neighbour before enabling it.** The wrong end of an uplink joins two routers on one subnet.
+- **Never adopt a switch that carries live traffic before its VLANs exist on the new gateway.**
+- **Network boot:** the gateway's DHCP option is one filename per network (UEFI or BIOS). A proxyDHCP serves both without touching the gateway's DHCP (`docs/platform/omni-and-netboot.md`).
+- **Recovery notes rot:** after each migration step, re-read the "how do I get back in" document. A fallback that names a network which no longer exists is worse than none.

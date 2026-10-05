@@ -40,6 +40,7 @@ Assume part-time evenings. Adjust freely.
 - [ ] Ship something you *care* about (trading bot, family app, blog)  
 - [ ] CI: commit → image → registry → GitOps tag bump  
 - [ ] Chaos day: reboot node, restore from backup notes  
+- [ ] The read-only disk and etcd check (`docs/platform/disk-and-etcd-health.md`) and its two alerts  
 - [ ] Write 3 portfolio stories from issues  
 - [ ] Optional: second node or Omni research spike  
 
@@ -58,6 +59,10 @@ Assume part-time evenings. Adjust freely.
 ## Stretch (after 90)
 
 - Multi-tenant platform-gitops  
+- Omni + netboot: build and destroy a second cluster from a template  
+- LoadBalancer IPs over BGP; measure the failover yourself  
+- A GPU node for local AI; one honest benchmark with temperature logged  
+- An MCP server on the LAN for one thing the agent can't reach today  
 - WAHA + MCP (agent WhatsApp tools)  
 - Forgejo mirrors  
 - Offsite backups (3-2-1)  
