@@ -178,6 +178,13 @@ Recurring failures worth preventing on day one. The numbers are stable identifie
 131. **A metric that reads zero may be the query.** `rate()` of a gauge is ~0 whenever the gauge is steady; check freshness (`timestamp(up)`) before declaring an ingest outage.
 132. **Say only what you saw.** "It was working all along, just not logging" is a claim about a pod nobody measured; write what was observed and what is unknown.
 
+133. **One cause, one alert.** When an API stall restarts every controller, per-pod "crash loop" rules send a dozen lines. Write the cause rule (several control-plane pods restarting together; etcd write latency) and suppress the symptom rule with `unless on (cluster)` while it holds.
+134. **An alert is a sentence:** what, where, how much, since when, the first step. Without a value and a time it is a notification, not information.
+135. **The monitoring system must not page about itself many times.** Rules keep their last state when the backend errors; one dedicated rule reports "the metrics backend is down, alerts are blind".
+136. **Validate a monitoring backend's config before rolling it.** A key that existed in an older major version crash-looped the metrics store for twelve minutes.
+137. **Put etcd on a disk nobody else hammers.** On a cheap QLC drive shared with every guest, its fsync p95 was 348 ms; on an idle drive in the same host, 13 ms, after one online disk move.
+138. **Collector annotations are not universal.** Grafana's k8s-monitoring discovers `k8s.grafana.com/scrape`, not `prometheus.io/scrape`; check that a target is actually scraped before writing alerts on it.
+
 ## Career
 
 37. Write postmortems for yourself — keep them next to the issue that fixed them.
