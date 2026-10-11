@@ -156,6 +156,28 @@ Recurring failures worth preventing on day one. The numbers are stable identifie
 112. **A blocklist inflates the count of what it blocks.** One TV made 5,000 DNS lookups in a day; 3,863 were retries for two refused logging hosts. "It phones home N times a day" describes the block as much as the device.
 113. **Copying a folder from a Mac with `tar` adds a hidden `._name` file beside each entry.** A program that reads every file in a config directory will choke on one. `COPYFILE_DISABLE=1 tar …` (the Mac's own `tar -t` hides them, so check with another reader).
 
+## Platform: many small clusters, GitOps, addressing (2026-10-07 → 10-11)
+
+114. **One cluster per owner, one GitHub App per owner** keeps a tenant's mistakes and credentials inside its own walls; the cost is a generator that renders every cluster's platform from one data file. Make that generator the only way platform files change.
+115. **Before the first live step of a fleet-wide change, make the generator prove it changes nothing.** Add the new values beside the old ones with a phase switch per cluster (old / both / new); re-render every cluster at `old` and diff against Git: byte-identical, or stop.
+116. **Changing an ApplicationSet's generator deletes the Applications it stops generating, PVCs included,** when the Applications carry the resources finalizer. Set `preserveResourcesOnDeletion` or move apps one by one.
+117. **Local ZFS volumes through Proxmox CSI follow a pod only between VMs of the same host.** Plan nodes per host; a bare-metal node takes none.
+118. **A single-node cluster out of memory fails as a crash-loop storm** (every leader-elected controller restarting, etcd slow), not as tidy OOM kills of an app. Alert on node memory, not only on the symptoms.
+119. **`mc admin policy create` replaces the policy.** A script that recreates storage policies must know every bucket a client really uses, or it silently cuts its backups.
+120. **A DNS updater that only adds (external-dns over RFC2136 without zone transfer) leaves the old A record when an address changes:** every name answers a live and a dead address, and browsers hide it. Delete the old records in the same step.
+121. **Shrink a VLAN's subnet before you carve a routed pool out of the same /24:** while the VLAN is still /24, the new pool is on-link for every machine on it and nothing routes to the BGP next hop.
+122. **Uploading an FRR config to a UniFi gateway resets every BGP session (~2 s), not just the changed peer:** batch all clusters into one upload.
+123. **After a lone control plane changes its IP, restart kube-apiserver.** It reads its advertise address at start, so the `kubernetes` Service keeps pointing at the old one and every in-cluster API client crash-loops.
+124. **A rehearsal only proves what you look at.** The throwaway cluster looked fine at 60 s; the real problem showed up minutes later in controllers nobody checked.
+125. **Long `kubectl exec` streams through an API proxy die at exactly one hour.** Move big volumes node-to-node over the LAN instead, and restart nothing from zero by hand.
+126. **A Cloudflare tunnel only serves zones in its own account,** so moving a zone between accounts is a tunnel change first and a nameserver change last; and an account may hand a new zone a different nameserver pair from its siblings.
+127. **An API token cut for named zones can't see a zone added to the account later.** Tools using it skip the new zone silently. Update the token's policies when a zone joins.
+128. **"Any valid service token" in an access policy lets every token in the account through,** including one you minted for a single friend and a single host.
+129. **Gateway features can flip their default between patch releases.** Envoy Gateway 1.9.2 needs Lua enabled where 1.9.1 didn't; routes using it answer 500. And a Helm change to a controller's ConfigMap is not live until the controller restarts.
+130. **Multus beside Cilium: patch the node before plugging the NIC, let Cilium share the CNI before installing Multus.** Otherwise the node takes an address on a house network, or Cilium renames Multus' config away.
+131. **A metric that reads zero may be the query.** `rate()` of a gauge is ~0 whenever the gauge is steady; check freshness (`timestamp(up)`) before declaring an ingest outage.
+132. **Say only what you saw.** "It was working all along, just not logging" is a claim about a pod nobody measured; write what was observed and what is unknown.
+
 ## Career
 
 37. Write postmortems for yourself — keep them next to the issue that fixed them.
